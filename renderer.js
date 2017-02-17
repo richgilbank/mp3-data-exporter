@@ -9,11 +9,12 @@ let interruptReading = false
 let tracks = []
 
 ipcRenderer.on('openDirectoryDialog', (event, rootDir) => {
+  const outputNode = document.getElementById('Output')
+  outputNode.innerHTML = 'Starting the search for files...'
   recursive(rootDir, (err, files) => {
     interruptReading = false
     tracks = []
-    const outputNode = document.getElementById('Output')
-    outputNode.innerHTML = `${files.length} total files found. `
+    outputNode.innerHTML += `${files.length} total files found. `
     const filteredFileList = filterFileList(files)
     outputNode.innerHTML += `<br>${filteredFileList.length} files matching music extensions.`
     outputNode.innerHTML += `<br>Starting ID3 tag reading.`
