@@ -25,8 +25,10 @@ ipcRenderer.on('openDirectoryDialog', (event, rootDir) => {
 
     filteredFileList.forEach((file, i) => {
       if(interruptReading) return;
-      mm(fs.createReadStream(file), (err, metadata) => {
+      const readableStream = fs.createReadStream(file)
+      mm(readableStream, (err, metadata) => {
         if(err) throw err;
+        readableStream.close()
         const data = {
           artist: (metadata.artist && metadata.artist.length) ? metadata.artist[0] : '',
           title: metadata.title ? metadata.title : '',
