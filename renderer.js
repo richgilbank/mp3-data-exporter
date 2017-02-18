@@ -5,11 +5,13 @@ const fs = require('fs')
 const mm = require('musicmetadata')
 const json2csv = require('json2csv')
 
+const outputNode = document.getElementById('Output')
+
 let interruptReading = false
 let tracks = []
+let fileIndex = 0
 
 ipcRenderer.on('openDirectoryDialog', (event, rootDir) => {
-  const outputNode = document.getElementById('Output')
   outputNode.innerHTML = 'Starting the search for files...'
   recursive(rootDir, (err, files) => {
     interruptReading = false
@@ -20,30 +22,36 @@ ipcRenderer.on('openDirectoryDialog', (event, rootDir) => {
     outputNode.innerHTML += `<br>Starting ID3 tag reading.`
     outputNode.innerHTML += `<button id="StopReading">Stop</button>`
 
-    const progressPercentage = document.createElement('div')
-    progressPercentage.innerText = '0% complete'
-    outputNode.appendChild(progressPercentage)
 
-    filteredFileList.forEach((file, i) => {
-      if(interruptReading) return;
-      const readableStream = fs.createReadStream(file)
-      mm(readableStream, (err, metadata) => {
-        if(err) throw err;
-        readableStream.close()
-        const data = {
-          artist: (metadata.artist && metadata.artist.length) ? metadata.artist[0] : '',
-          title: metadata.title ? metadata.title : '',
-          album: metadata.album ? metadata.album : '',
-        }
-        tracks.push(data)
-        progressPercentage.innerText = `${Math.floor((i+1) / filteredFileList.length * 100)}% complete`
-        if(i+1 == filteredFileList.length) {
-          onProcessingComplete()
-        }
-      })
-    })
+    fileIndex = 0
+    readNextFile(fileIndex, filteredFileList)
   })
 })
+
+function readNextFile(index, list) {
+  const progressPercentage = document.createElement('div')
+  progressPercentage.innerText = '0% complete'
+  outputNode.appendChild(progressPercentage)
+
+  if(index + 1 >= list.length) {
+    onProcessingComplete()
+    return;
+  }
+  return new Promise((resolve, reject) => {
+    const readableStream = fs.createReadStream(list[index])
+    mm(readableStream, (err, metadata) => {
+      if(err) throw err;
+      readableStream.close()
+      tracks.push({
+        artist: (metadata.artist && metadata.artist.length) ? metadata.artist[0] : '',
+        title: metadata.title ? metadata.title : '',
+        album: metadata.album ? metadata.album : '',
+      })
+      progressPercentage.innerText = `${Math.floor((index+1) / list.length * 100)}% complete`
+      readNextFile(index+1, list)
+    })
+  })
+}
 
 ipcRenderer.on('openSaveDialog', (event, fileName) => {
   const fields = ['artist', 'title', 'album']
