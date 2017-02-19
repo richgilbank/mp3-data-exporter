@@ -12,7 +12,7 @@ let mainWindow
 let musicPath = ''
 
 function createWindow () {
-  mainWindow = new BrowserWindow({width: 350, height: 500})
+  mainWindow = new BrowserWindow({width: 320, height: 520, titleBarStyle: 'hidden-inset'})
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),

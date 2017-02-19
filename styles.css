@@ -1,11 +1,13 @@
 html, body {
   margin: 0;
   padding: 0;
-
   background: #394253;
   font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
   font-weight: 200;
   color: #fff;
+  min-width: 100%;
+  min-height: 100%;
+  -webkit-app-region: drag;
 }
 
 html * {
@@ -23,6 +25,7 @@ button {
   border-radius: 30px;
   cursor: pointer;
   transition: all 200ms ease;
+  -webkit-app-region: no-drag;
 }
 
 button:hover, button:focus, button:active {
