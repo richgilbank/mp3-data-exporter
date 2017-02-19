@@ -32,7 +32,7 @@ function getFileMetadata(path) {
   return new Promise((resolve, reject) => {
     const readableStream = fs.createReadStream(path)
     metadata(readableStream, (err, id3) => {
-      if(err) throw err;
+      if(err) reject(err)
       readableStream.close()
       resolve({
         artist: (id3.artist && id3.artist.length) ? id3.artist[0] : '',
