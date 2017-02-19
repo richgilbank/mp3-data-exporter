@@ -20,6 +20,8 @@ module.exports = function processFiles(state) {
           state.percentComplete = ~~(i / paths.length * 100)
           renderTemplate(state)
           res(data)
+        }).catch((err) => {
+          res({})
         })
       })
     }).then(() => {
