@@ -1,0 +1,24 @@
+<div class="wrapper wrapper--{{route}}">
+
+{{#ifRoute 'start'}}
+  <button type="button" id="OpenDirectorySelection">Select your music directory</button>
+{{/ifRoute}}
+
+{{#ifRoute 'fileSearch'}}
+  <p>Starting the search for files…</p>
+{{/ifRoute}}
+
+{{#ifRoute 'fileProcess'}}
+  <p>{{totalFileCount}} files found</p>
+  <p>{{filteredFileCount}} of them look like music files</p>
+  <hr>
+  <p>Processing ID3 tags…</p>
+  <p>{{percentComplete}}%</p>
+{{/ifRoute}}
+
+{{#ifRoute 'processingComplete'}}
+  <p>Done!</p>
+  <button type="button" id="SaveToCSV">Save to CSV</button>
+{{/ifRoute}}
+
+</div>
