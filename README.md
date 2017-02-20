@@ -7,6 +7,8 @@ to export a CSV file from it.
 
 Once you have a CSV, you can use a free tool like [Playlist Converter](http://www.playlist-converter.net/#/) to import it into Spotify or another service.
 
+To use it, download the binary for your platform ([Mac](https://s3.amazonaws.com/mp3-data-exporter/mp3-data-exporter.app.zip)), open the zip file, and run the app (`mp3-data-exporter.app`).
+
 #### Screenshots:
 ![](https://s3.amazonaws.com/mp3-data-exporter/screens.jpg)
 
