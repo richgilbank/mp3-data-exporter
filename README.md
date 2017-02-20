@@ -8,9 +8,7 @@ to export a CSV file from it.
 Once you have a CSV, you can use a free tool like [Playlist Converter](http://www.playlist-converter.net/#/) to import it into Spotify or another service.
 
 #### Screenshots:
-![](https://s3.amazonaws.com/mp3-data-exporter/1.png)
-![](https://s3.amazonaws.com/mp3-data-exporter/2.png)
-![](https://s3.amazonaws.com/mp3-data-exporter/3.png)
+![](https://s3.amazonaws.com/mp3-data-exporter/screens.jpg)
 
 **Note:** This was built for my own purposes. It may work for yours, it
 may not. It's a quick-and-dirty way to do this, so it's pretty far from
