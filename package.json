@@ -1,14 +1,14 @@
 {
-  "name": "id3-to-csv",
+  "name": "mp3-data-exporter",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . id3-to-csv --out=docs"
+    "build": "electron-packager . mp3-data-exporter --out=build --overwrite"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Rich Gilbank",
+  "license": "MIT",
   "devDependencies": {
     "electron": "^1.4.15",
     "electron-packager": "^8.5.1"
