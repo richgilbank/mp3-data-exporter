@@ -1,4 +1,4 @@
 ### Binaries:
 
-* [OSX .app version](id3-to-csv-darwin-x64/id3-to-csv.app)
+* [OSX .app version](https://s3.amazonaws.com/mp3-data-exporter/mp3-data-exporter.app.zip)
 * Haven't yet built a Windows binary, but it should be as easy as`npm i && npm run build` from a Windows machine
