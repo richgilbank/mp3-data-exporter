@@ -30,11 +30,35 @@ function onCloseDirectoryDialog(event, rootDir) {
     })
 }
 
-function onCloseSaveDialog(event, fileName) {
+function onCloseSaveDialog(event, filename, type) {
+  switch(type) {
+    case 'm3u':
+      saveToM3U(filename)
+      break;
+    case 'csv':
+      saveToCSV(filename)
+      break;
+  }
+}
+
+function saveToCSV(filename) {
   const fields = ['artist', 'title', 'album']
   const csv = json2csv({data: id3Data, fields})
-  fs.writeFile(fileName, csv, (err) => {
-    if(err) throw err;
+  writeToFile(filename, csv)
+}
+
+function saveToM3U(filename) {
+  let m3uLineArray = ['#EXTM3U']
+  id3Data.forEach((track) => {
+    m3uLineArray.push(`#EXTINF:-1,${track.artist} - ${track.title}
+fakepath.mp3`)
+  })
+  writeToFile(filename, m3uLineArray.join("\n"))
+}
+
+function writeToFile(filename, contents) {
+  fs.writeFile(filename, contents, (err) => {
+    if(err) alert(err)
   })
 }
 
@@ -44,7 +68,8 @@ ipcRenderer.on('openSaveDialog', onCloseSaveDialog)
 const clickHandlers = {
   OpenDirectorySelection: (() => ipcRenderer.send('openDirectoryDialog')),
   StopReading: (() => interruptReading = true),
-  SaveToCSV: (() => ipcRenderer.send('openSaveDialog'))
+  SaveToCSV: (() => ipcRenderer.send('openSaveDialog', 'csv')),
+  SaveToM3U: (() => ipcRenderer.send('openSaveDialog', 'm3u'))
 }
 
 document.addEventListener('click', (evt) => {
