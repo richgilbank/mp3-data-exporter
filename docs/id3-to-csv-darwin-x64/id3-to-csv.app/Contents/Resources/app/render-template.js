@@ -1,10 +1,12 @@
 const Handlebars = require('handlebars')
+const path = require('path')
 
 let template
 const container = document.getElementById('Container')
 
 const init = new Promise((resolve, reject) => {
-  fs.readFile('index.hbs', 'utf-8', (err, source) => {
+  fs.readFile(path.join(__dirname, 'index.hbs'), 'utf-8', (err, source) => {
+    if(err) document.body.innerHTML = err.toString()
 
     Handlebars.registerHelper('ifRoute', function(arg1, options) {
       if(arg1 === options.data.root.route)

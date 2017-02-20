@@ -9,6 +9,7 @@ let id3Data = []
 let state = {
   route: 'start'
 }
+
 renderTemplate(state)
 
 function onCloseDirectoryDialog(event, rootDir) {
@@ -50,7 +51,7 @@ function saveToCSV(filename) {
 function saveToM3U(filename) {
   let m3uLineArray = ['#EXTM3U']
   id3Data.forEach((track) => {
-    m3uLineArray.push(`#EXTINF:-1,${track.artist} - ${track.title}
+    m3uLineArray.push(`#EXTINF:10,${track.artist} - ${track.title}
 fakepath.mp3`)
   })
   writeToFile(filename, m3uLineArray.join("\n"))

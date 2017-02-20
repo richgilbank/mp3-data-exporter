@@ -35,11 +35,11 @@ function createWindow () {
 
   ipcMain.on('openSaveDialog', (event, arg) => {
     const dialogOptions = {
-      title: 'Save CSV as...',
-      defaultPath: path.join(musicPath, 'Tracks.csv')
+      title: 'Save file as...',
+      defaultPath: path.join(musicPath, `Tracks.${arg}`)
     }
     dialog.showSaveDialog(mainWindow, dialogOptions, (filePath) => {
-      if(filePath) event.sender.send('openSaveDialog', filePath)
+      if(filePath) event.sender.send('openSaveDialog', filePath, arg)
     })
   })
 
